@@ -39,9 +39,24 @@ function initAudio() {
     };
 
     // If it was playing on the previous page, try to resume
-    if (wasPlaying || window.location.pathname.includes('index.html')) {
+    const isLandingPage = window.location.pathname === '/' ||
+        window.location.pathname.endsWith('/') ||
+        window.location.pathname.includes('index.html');
+
+    if (wasPlaying || isLandingPage) {
         attemptPlay();
     }
+
+    // Global interaction listener as a fail-safe
+    const resumeOnInteraction = () => {
+        if (audio.paused && !audio.muted) {
+            audio.play().then(() => {
+                localStorage.setItem('audioPlaying', 'true');
+                document.removeEventListener('click', resumeOnInteraction);
+            });
+        }
+    };
+    document.addEventListener('click', resumeOnInteraction);
 
     // Update localStorage state periodically
     setInterval(() => {
