@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Journey | 29 Years</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .journey-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 20px;
+            align-items: center;
+        }
+
+        .timeline {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            width: 100%;
+            max-width: 1000px;
+            padding: 20px 0;
+            gap: 20px;
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        .timeline::-webkit-scrollbar {
+            display: none;
+            /* Chrome/Safari */
+        }
+
+        .card {
+            flex: 0 0 85%;
+            scroll-snap-align: center;
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.5s ease;
+            position: relative;
+            max-height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            box-shadow: 0 15px 40px rgba(248, 200, 220, 0.3);
+        }
+
+        .card img,
+        .card video {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .card-content h2 {
+            font-size: 1.5rem;
+            color: var(--secondary-pink);
+            margin-bottom: 15px;
+        }
+
+        .card-content p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .nav-footer {
+            margin-bottom: 40px;
+        }
+
+        .swipe-hint {
+            font-size: 0.9rem;
+            color: #999;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .card {
+                flex: 0 0 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="transition-overlay"></div>
+    <div id="petals-container"></div>
+
+    <div class="journey-container">
+        <h1 class="fade-in" style="margin-bottom: 10px; text-align: center;">The Beautiful Journey</h1>
+        <p class="fade-in" style="margin-bottom: 30px; color: #777;">Swipe to walk through the years...</p>
+
+        <div class="timeline fade-in">
+            <!-- 1997 - The Beginning -->
+            <div class="card">
+                <img src="assets/images/couple1.jpeg" alt="Selection of parents in 1997">
+                <div class="card-content">
+                    <h2>1997 – The Beginning 💍</h2>
+                    <p>“Two hearts promised forever, starting a life full of dreams and love.”</p>
+                </div>
+            </div>
+
+            <!-- 1997 - First Son -->
+            <div class="card">
+                <img src="assets/images/son1.jpg.jpeg" alt="First son in 1997">
+                <div class="card-content">
+                    <h2>1997 – First Blessing 👶</h2>
+                    <p>“Just 10 months later, your love became a family. A new heart to hold.”</p>
+                </div>
+            </div>
+
+            <!-- 2005 - Second Son -->
+            <div class="card">
+                <img src="assets/images/son2.jpg.jpeg" alt="Second son in 2005">
+                <div class="card-content">
+                    <h2>2005 – Love Multiplied 👶</h2>
+                    <p>“The family grew larger as another heart joined this incredible journey.”</p>
+                </div>
+            </div>
+
+            <!-- 2007 - Home -->
+            <div class="card">
+                <video autoplay muted loop playsinline>
+                    <source src="assets/video/home-2007.mp4" type="video/mp4">
+                </video>
+                <div class="card-content">
+                    <h2>2007 – A Home of Their Own 🏡</h2>
+                    <p>“From a joint family to dreaming under one roof. Our own little sanctuary.”</p>
+                </div>
+            </div>
+
+            <!-- 2026 - Present -->
+            <div class="card">
+                <img src="assets/images/couple2.jpeg" alt="Parents in 2026">
+                <div class="card-content">
+                    <h2>2026 – 29 Years Strong ❤️</h2>
+                    <p>“Still holding hands. Still choosing each other, every single day.”</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-footer">
+            <a href="teddy.html" class="cta-button">Next: Teddy Day</a>
+        </div>
+    </div>
+
+    <div class="audio-controls">
+        <button id="mute-toggle" class="control-btn" title="Toggle Music"></button>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

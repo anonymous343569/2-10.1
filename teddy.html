@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teddy Day | Heartfelt Hugs</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .page-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .teddy-wrapper {
+            position: relative;
+            margin: 40px 0;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .teddy-img {
+            width: 250px;
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .teddy-zoom {
+            transform: scale(1.2);
+        }
+
+        .message-box {
+            min-height: 80px;
+            margin-top: 20px;
+            font-size: 1.3rem;
+            color: var(--dark-text);
+            max-width: 90%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .message-active {
+            opacity: 1;
+        }
+
+        .burst-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes burst {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .heart-icon {
+            position: absolute;
+            animation: burst 1s forwards;
+            font-size: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="transition-overlay"></div>
+    <div id="petals-container"></div>
+
+    <div class="page-container">
+        <h1 class="fade-in">A Hug for Maa & Papa</h1>
+        <p class="fade-in" style="color: #777;">Because your love has always been our safest hug. 🧸</p>
+
+        <div class="teddy-wrapper fade-in" id="teddy-target">
+            <img src="assets/images/teddy.jpeg" alt="Cute Teddy Bear" class="teddy-img">
+            <div id="burst-container"></div>
+        </div>
+
+        <button id="hug-btn" class="cta-button fade-in">Send a Teddy Hug</button>
+
+        <div id="message-display" class="message-box">
+            Maa & Papa, <br> you taught us what love feels like. ❤️
+        </div>
+
+        <div class="nav-footer fade-in" style="margin-top: 40px;">
+            <a href="dance.html" class="cta-button">Next: Dance of Love</a>
+        </div>
+    </div>
+
+    <div class="audio-controls">
+        <button id="mute-toggle" class="control-btn" title="Toggle Music"></button>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        const hugBtn = document.getElementById('hug-btn');
+        const teddy = document.getElementById('teddy-target');
+        const message = document.getElementById('message-display');
+        const burstContainer = document.getElementById('burst-container');
+
+        hugBtn.addEventListener('click', () => {
+            // Zoom Effect
+            teddy.classList.add('teddy-zoom');
+            setTimeout(() => teddy.classList.remove('teddy-zoom'), 500);
+
+            // Burst Effect
+            createBurst();
+
+            // Message Display
+            message.classList.add('message-active');
+
+            // Haptic Feedback
+            if (navigator.vibrate) {
+                navigator.vibrate(200);
+            }
+
+            // Disable button after click for better emotional impact
+            hugBtn.innerHTML = "Hugs Sent! ❤️";
+            hugBtn.style.pointerEvents = 'none';
+            hugBtn.style.opacity = '0.7';
+        });
+
+        function createBurst() {
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-icon';
+                heart.innerHTML = i % 2 === 0 ? '❤️' : '🧸';
+
+                const angle = Math.random() * Math.PI * 2;
+                const dist = Math.random() * 200 + 50;
+                heart.style.setProperty('--tx', `${Math.cos(angle) * dist}px`);
+                heart.style.setProperty('--ty', `${Math.sin(angle) * dist}px`);
+                heart.style.left = '50%';
+                heart.style.top = '50%';
+
+                burstContainer.appendChild(heart);
+                setTimeout(() => heart.remove(), 1000);
+            }
+        }
+    </script>
+</body>
+
+</html>
