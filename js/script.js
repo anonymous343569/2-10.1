@@ -6,8 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- Audio Persistence Logic ---
 function initAudio() {
-    const audio = new Audio('assets/audio/background-song.mp3');
+    // Relative path works best for GitHub Pages subfolders
+    const audioPath = 'assets/audio/background-song.mp3';
+    const audio = new Audio(audioPath);
     audio.loop = true;
+    audio.preload = 'auto';
     audio.volume = 0.4;
 
     const savedTime = localStorage.getItem('audioTime');
@@ -38,10 +41,9 @@ function initAudio() {
         });
     };
 
-    // If it was playing on the previous page, try to resume
-    const isLandingPage = window.location.pathname === '/' ||
+    const isLandingPage = window.location.pathname.endsWith('index.html') ||
         window.location.pathname.endsWith('/') ||
-        window.location.pathname.includes('index.html');
+        window.location.pathname === '';
 
     if (wasPlaying || isLandingPage) {
         attemptPlay();
@@ -52,11 +54,12 @@ function initAudio() {
         if (audio.paused && !audio.muted) {
             audio.play().then(() => {
                 localStorage.setItem('audioPlaying', 'true');
-                document.removeEventListener('click', resumeOnInteraction);
-            });
+            }).catch(() => { });
         }
     };
-    document.addEventListener('click', resumeOnInteraction);
+    document.addEventListener('mousedown', resumeOnInteraction);
+    document.addEventListener('touchstart', resumeOnInteraction);
+    document.addEventListener('keydown', resumeOnInteraction);
 
     // Update localStorage state periodically
     setInterval(() => {

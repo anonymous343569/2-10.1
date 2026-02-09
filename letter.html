@@ -81,19 +81,40 @@
             width: 90vw;
             max-width: 600px;
             height: auto;
-            min-height: 400px;
             max-height: 80vh;
             overflow-y: auto;
-            z-index: 2001;
-            box-shadow: 0 10px 100px rgba(0, 0, 0, 0.2);
+            z-index: 2100;
+            box-shadow: 0 10px 100px rgba(0, 0, 0, 0.3);
             padding: 40px;
-            border-radius: 10px;
+            border-radius: 15px;
+            background: white;
+            display: block;
+            /* Better for text flow */
+        }
+
+        /* Add a backdrop when the letter is opened */
+        .page-container::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            z-index: 2000;
+        }
+
+        .show-final.page-container::after {
+            opacity: 1;
         }
 
         @media (min-width: 768px) {
             .opened .letter {
                 width: 600px;
-                padding: 60px;
+                padding: 50px;
             }
         }
 
